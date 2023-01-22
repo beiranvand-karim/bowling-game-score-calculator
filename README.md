@@ -6,6 +6,6 @@ It calculates over all score for all frames played so far.
 It keeps rack of each individual frame and visualizes them in a table.
 
 #### scaffold
+
 this game is created using angular command line tool. Using the folowing command:
 `ng new bowling-game-score-calculator --routing --style=scss --package-manager=yarn`
-
