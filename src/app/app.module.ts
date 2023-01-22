@@ -13,16 +13,19 @@ import { AppComponent } from './app.component'
 import { framesReducer } from './reducers'
 import {
   FramePerformanceReceivingFormComponent,
+  GameScoringHistoryTableComponent,
   FrameHitsFormCardComponent,
 } from './components'
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomePageComponent,
-    NotFoundPageComponent,
     FramePerformanceReceivingFormComponent,
+    GameScoringHistoryTableComponent,
     FrameHitsFormCardComponent,
+    NotFoundPageComponent,
+    HomePageComponent,
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import {
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

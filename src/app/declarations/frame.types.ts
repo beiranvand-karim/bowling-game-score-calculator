@@ -1,3 +1,8 @@
+export interface GameHistoryTableIncomingDataFormat {
+  frame: Frame
+  score: number
+}
+
 export interface Frame {
   first: number
   second: number
