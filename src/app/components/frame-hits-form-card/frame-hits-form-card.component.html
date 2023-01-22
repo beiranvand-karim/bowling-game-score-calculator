@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Rolls hits form</mat-card-title>
+    <mat-card-subtitle>
+      <ng-template
+        [ngIf]="liveFrameIndicator <= GAME_LENGTH"
+        [ngIfElse]="scores">
+        Frame {{ liveFrameIndicator }} (of {{ GAME_LENGTH }})
+      </ng-template>
+      <ng-template #scores> scores ...</ng-template>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <ng-template [ngIf]="liveFrameIndicator <= GAME_LENGTH" [ngIfElse]="gameOver">
+    <app-frame-performance-receiving-form></app-frame-performance-receiving-form>
+  </ng-template>
+  <ng-template #gameOver>
+    <div class="game__score">
+      <div>Game Over</div>
+      <div>Total score is {{ allPlayedFramesScore | async }}</div>
+      <button
+        (click)="restGame()"
+        type="button"
+        mat-button
+        color="primary"
+        mat-raised-button>
+        Start a new game
+      </button>
+    </div>
+  </ng-template>
+</mat-card>
