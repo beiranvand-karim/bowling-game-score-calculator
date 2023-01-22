@@ -1,1 +1,81 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+$the-game-primary: mat.define-palette(mat.$indigo-palette);
+$the-game-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$the-game-warn: mat.define-palette(mat.$red-palette);
+
+$the-game-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $the-game-primary,
+      accent: $the-game-accent,
+      warn: $the-game-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($the-game-theme);
+
+$primary: #fff;
+
+body {
+  margin: 0;
+  background-color: #eee;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mdc-text-field--filled {
+  &:not(.mdc-text-field--disabled) {
+    background-color: rgba(81, 85, 69, 0.4);
+
+    .mdc-line-ripple {
+      &::before {
+        border-bottom-color: $primary;
+      }
+    }
+  }
+
+  .mdc-line-ripple {
+    &::after {
+      border-bottom-color: $primary;
+    }
+  }
+}
+
+.mat-mdc-form-field {
+  background-color: transparent;
+}
+
+.mdc-text-field {
+  &:not(.mdc-text-field--disabled) {
+    .mdc-floating-label {
+      color: rgba(222, 222, 222, 0.6);
+    }
+
+    .mdc-text-field__input {
+      color: $primary;
+    }
+  }
+
+  .mdc-text-field__input {
+    caret-color: $primary;
+  }
+}
+
+.mat-mdc-button.mat-unthemed {
+  --mdc-text-button-label-text-color: $primary;
+}
+
+.mdc-button {
+  border: solid;
+}
