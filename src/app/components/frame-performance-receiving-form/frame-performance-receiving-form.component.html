@@ -1,0 +1,58 @@
+<form
+  autocomplete="off"
+  (ngSubmit)="onSubmit()"
+  class="game__form"
+  [formGroup]="form">
+  <mat-form-field class="game__mat__input">
+    <mat-label>First roll pins down</mat-label>
+    <input
+      matInput
+      formControlName="firstRollInputField"
+      type="number"
+      #firstRollInputElement
+      (ngModelChange)="
+        onFirstRollInputElementValueChange(firstRollInputElement)
+      " />
+    <mat-error *ngIf="firstRollInputControl?.hasError('required')"
+      >Please enter the value</mat-error
+    >
+    <mat-error *ngIf="this.firstRollInputControl?.hasError('min')"
+      >value must be equal or greater than 0</mat-error
+    >
+    <mat-error *ngIf="this.firstRollInputControl?.hasError('max')"
+      >Should be less or equal to {{ PINS_SET_AS_TARGET_PER_FRAME }}</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="game__mat__input">
+    <mat-label>Second roll pins down</mat-label>
+    <input matInput formControlName="secondRollInputField" type="number" />
+    <mat-error *ngIf="secondRollInputControl?.hasError('required')"
+      >Please enter the value</mat-error
+    >
+    <mat-error *ngIf="this.secondRollInputControl?.hasError('min')"
+      >value must be equal or greater than 0</mat-error
+    >
+    <mat-error *ngIf="this.secondRollInputControl?.hasError('max')"
+      >Should be less or equal to {{ PINS_SET_AS_TARGET_PER_FRAME }}</mat-error
+    >
+  </mat-form-field>
+  <div class="buttons">
+    <button
+      mat-button
+      type="reset"
+      color="accent"
+      mat-raised-button
+      (click)="restGame()"
+      class="btn clear_form">
+      Reset
+    </button>
+    <button
+      mat-button
+      type="submit"
+      color="primary"
+      mat-raised-button
+      class="btn submit_value">
+      Submit
+    </button>
+  </div>
+</form>
