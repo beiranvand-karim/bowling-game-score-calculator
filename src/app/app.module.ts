@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserModule } from '@angular/platform-browser'
 import { MatInputModule } from '@angular/material/input'
+import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { StoreModule } from '@ngrx/store'
 
@@ -14,13 +15,14 @@ import { framesReducer } from './reducers'
 import {
   FramePerformanceReceivingFormComponent,
   GameScoringHistoryTableComponent,
+  GameScoringHistoryCardComponent,
   FrameHitsFormCardComponent,
 } from './components'
-import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [
     FramePerformanceReceivingFormComponent,
+    GameScoringHistoryCardComponent,
     GameScoringHistoryTableComponent,
     FrameHitsFormCardComponent,
     NotFoundPageComponent,

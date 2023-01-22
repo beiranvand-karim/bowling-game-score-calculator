@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Scoring history</mat-card-title>
+    <mat-card-subtitle
+      >Total score is {{ allPlayedFramesScore | async }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <div class="space-around-card-content">
+    <ng-template
+      [ngIf]="scoringHistoryData.length > 0"
+      [ngIfElse]="waitingGameStart">
+      <app-game-scoring-history-table
+        [dataSource]="scoringHistoryData"></app-game-scoring-history-table>
+    </ng-template>
+    <ng-template #waitingGameStart> Waiting for game to start ... </ng-template>
+  </div>
+</mat-card>
