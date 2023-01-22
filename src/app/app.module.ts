@@ -1,6 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserModule } from '@angular/platform-browser'
 import { MatInputModule } from '@angular/material/input'
@@ -32,6 +33,7 @@ import {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ frames: framesReducer }),
     ReactiveFormsModule,
     FormsModule,
