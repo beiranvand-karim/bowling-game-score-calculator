@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core'
+import { select, Store } from '@ngrx/store'
 import { map, Observable } from 'rxjs'
-import { Store } from '@ngrx/store'
 
 import { AppState, ScoreCalculatorService } from '../../declarations'
-import { REMOVE_ALL_FRAMES } from '../../reducers'
+import { framesSelector, removeAllFrames } from '../../state'
 
 @Component({
   selector: 'app-frame-hits-form-card',
@@ -21,26 +21,23 @@ export class FrameHitsFormCardComponent {
     private store: Store<AppState>,
     private scoreCalculatorService: ScoreCalculatorService
   ) {
-    this.store
-      .select(state => state.frames)
+    const framesFromStore = this.store.pipe(select(framesSelector))
+
+    framesFromStore
       .pipe(map(frames => frames.length + 1))
       .subscribe(framesCount => (this.liveFrameIndicator = framesCount))
 
-    this.store
-      .select(state => state.frames)
-      .subscribe(frames => {
-        const lastFrame = frames[frames.length - 1]
+    framesFromStore.subscribe(frames => {
+      const lastFrame = frames[frames.length - 1]
 
-        this.GAME_LENGTH =
-          frames.length === this.scoreCalculatorService.GAME_LENGTH &&
-          this.scoreCalculatorService.isStrikeOrSpare(lastFrame)
-            ? this.scoreCalculatorService.GAME_LENGTH + 1
-            : this.scoreCalculatorService.GAME_LENGTH
-      })
+      this.GAME_LENGTH =
+        frames.length === this.scoreCalculatorService.GAME_LENGTH &&
+        this.scoreCalculatorService.isStrikeOrSpare(lastFrame)
+          ? this.scoreCalculatorService.GAME_LENGTH + 1
+          : this.scoreCalculatorService.GAME_LENGTH
+    })
   }
   public restGame() {
-    this.store.dispatch({
-      type: REMOVE_ALL_FRAMES,
-    })
+    this.store.dispatch(removeAllFrames())
   }
 }

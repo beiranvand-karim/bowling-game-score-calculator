@@ -12,7 +12,7 @@ import { StoreModule } from '@ngrx/store'
 import { HomePageComponent, NotFoundPageComponent } from './pages'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { framesReducer } from './reducers'
+import { framesReducer } from './state'
 import {
   FramePerformanceReceivingFormComponent,
   GameScoringHistoryTableComponent,

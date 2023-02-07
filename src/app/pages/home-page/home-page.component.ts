@@ -1,8 +1,9 @@
+import { select, Store } from '@ngrx/store'
 import { Component } from '@angular/core'
 import { map, Observable } from 'rxjs'
-import { Store } from '@ngrx/store'
 
 import { AppState, ScoreCalculatorService } from '../../declarations'
+import { framesSelector } from '../../state'
 
 @Component({
   selector: 'app-home-page',
@@ -16,10 +17,9 @@ export class HomePageComponent {
     private store: Store<AppState>,
     private scoreCalculatorService: ScoreCalculatorService
   ) {
-    this.allPlayedFramesScore = this.store
-      .select(state => state.frames)
-      .pipe(
-        map(frames => this.scoreCalculatorService.calculateTotalScore(frames))
-      )
+    this.allPlayedFramesScore = this.store.pipe(
+      select(framesSelector),
+      map(frames => this.scoreCalculatorService.calculateTotalScore(frames))
+    )
   }
 }
