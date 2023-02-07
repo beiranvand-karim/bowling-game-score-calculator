@@ -22,3 +22,10 @@ follow the bullet point detailed below to run project in development mode.
 - Install packages using command in terminal `yarn install` in root directory of project.
 - Install angular command line tool globally by running this command: `yarn global add @angular/cli`
 - Then run command in terminal `yarn start` in root directory of project.
+
+## developer comments 
+here are few improvements that can be done to make project better. I skipped them to speed up the development.
+- UI styling and layouting could still be improved a bit more.
+- Form validation could also be improved to be very nice.
+- Code for form validation can be improved. It's not the optimalist code now.
+- I turned off typescript strict mode to speed up, so there is room for improvement there as well
