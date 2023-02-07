@@ -1,14 +1,14 @@
-import { Component } from '@angular/core'
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms'
-import { Store } from '@ngrx/store'
+import { Component } from '@angular/core'
+import { select, Store } from '@ngrx/store'
 
 import { AppState, Frame, ScoreCalculatorService } from '../../declarations'
-import { ADD_FRAME, REMOVE_ALL_FRAMES } from '../../reducers'
+import { addFrame, framesSelector, removeAllFrames } from '../../state'
 
 @Component({
   selector: 'app-frame-performance-receiving-form',
@@ -31,15 +31,13 @@ export class FramePerformanceReceivingFormComponent {
     private scoreCalculatorService: ScoreCalculatorService
   ) {
     this.buildForm()
-    this.store
-      .select(state => state.frames)
-      .subscribe(frames => {
-        const lastFrameInGame =
-          frames[this.scoreCalculatorService.GAME_LENGTH - 1]
-        this.isGameFrameSpare = lastFrameInGame
-          ? this.scoreCalculatorService.isSpare(lastFrameInGame)
-          : false
-      })
+    this.store.pipe(select(framesSelector)).subscribe(frames => {
+      const lastFrameInGame =
+        frames[this.scoreCalculatorService.GAME_LENGTH - 1]
+      this.isGameFrameSpare = lastFrameInGame
+        ? this.scoreCalculatorService.isSpare(lastFrameInGame)
+        : false
+    })
   }
 
   buildForm() {
@@ -87,21 +85,17 @@ export class FramePerformanceReceivingFormComponent {
       !this.firstRollInputControl?.errors &&
       !this.secondRollInputControl?.errors
     ) {
-      this.store.dispatch({
-        type: ADD_FRAME,
-        payload: <Frame>{
+      this.store.dispatch(
+        addFrame(<Frame>{
           first: this.firstRollInputControl.value,
           second: this.secondRollInputControl.value,
-        },
-      })
+        })
+      )
       this.buildForm()
     }
   }
   public restGame() {
-    this.store.dispatch({
-      type: REMOVE_ALL_FRAMES,
-    })
-
+    this.store.dispatch(removeAllFrames())
     this.buildForm()
   }
 }

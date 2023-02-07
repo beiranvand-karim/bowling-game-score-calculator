@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core'
+import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { Store } from '@ngrx/store'
 
 import {
   AppState,
-  GameHistoryTableIncomingDataFormat,
   ScoreCalculatorService,
+  GameHistoryTableIncomingDataFormat,
 } from '../../declarations'
+import { framesSelector } from '../../state'
 
 @Component({
   selector: 'app-game-scoring-history-card',
@@ -23,16 +24,14 @@ export class GameScoringHistoryCardComponent {
     private store: Store<AppState>,
     private scoreCalculatorService: ScoreCalculatorService
   ) {
-    this.store
-      .select(state => state.frames)
-      .subscribe(frames => {
-        this.scoringHistoryData = frames.map((targetFrame, index) => ({
-          frame: targetFrame,
-          score: this.scoreCalculatorService.calculateFrameScore(
-            targetFrame,
-            frames[index + 1]
-          ),
-        }))
-      })
+    this.store.pipe(select(framesSelector)).subscribe(frames => {
+      this.scoringHistoryData = frames.map((targetFrame, index) => ({
+        frame: targetFrame,
+        score: this.scoreCalculatorService.calculateFrameScore(
+          targetFrame,
+          frames[index + 1]
+        ),
+      }))
+    })
   }
 }
