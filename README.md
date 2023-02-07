@@ -20,5 +20,5 @@ follow the bullet point detailed below to run project in development mode.
 - Clone project using `git` version control.
 - Install yarn package manager globally by running the command in terminal `npm install --global yarn`
 - Install packages using command in terminal `yarn install` in root directory of project.
-- Install angular command line tool globally by running thiscommand: `yarn global add @angular/cli`
+- Install angular command line tool globally by running this command: `yarn global add @angular/cli`
 - Then run command in terminal `yarn start` in root directory of project.
