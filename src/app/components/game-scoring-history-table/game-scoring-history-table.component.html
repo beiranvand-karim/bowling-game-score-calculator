@@ -1,17 +1,19 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="rollNumber">
     <th mat-header-cell *matHeaderCellDef>Frame score</th>
-    <td mat-cell *matCellDef="let element">{{ element.score }}</td>
+    <td mat-cell *matCellDef="let element" data-test-id="score">
+      {{ element.score }}
+    </td>
   </ng-container>
   <ng-container matColumnDef="firstRoll">
     <th mat-header-cell *matHeaderCellDef>roll #1</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" data-test-id="first">
       {{ element.frame.first }}
     </td>
   </ng-container>
   <ng-container matColumnDef="secondRoll">
     <th mat-header-cell *matHeaderCellDef>roll #2</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" data-test-id="second">
       {{ element.frame.second }}
     </td>
   </ng-container>
