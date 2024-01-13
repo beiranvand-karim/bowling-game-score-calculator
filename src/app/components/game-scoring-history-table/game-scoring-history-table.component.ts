@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 
-import { GameHistoryTableIncomingDataFormat } from '../../declarations'
+import { GameHistoryTableIncomingDataFormat } from '../../domain'
 
 @Component({
   selector: 'app-game-scoring-history-table',

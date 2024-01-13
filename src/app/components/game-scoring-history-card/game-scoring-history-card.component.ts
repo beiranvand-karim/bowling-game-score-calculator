@@ -6,7 +6,7 @@ import {
   AppState,
   ScoreCalculatorService,
   GameHistoryTableIncomingDataFormat,
-} from '../../declarations'
+} from '../../domain'
 import { framesSelector } from '../../state'
 
 @Component({

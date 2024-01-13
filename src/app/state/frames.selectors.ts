@@ -1,4 +1,4 @@
-import { AppState, Frame } from '../declarations'
+import { AppState, Frame } from '../domain'
 
 import { createSelector } from '@ngrx/store'
 
