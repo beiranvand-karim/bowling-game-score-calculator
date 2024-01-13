@@ -19,6 +19,8 @@ import {
   GameScoringHistoryCardComponent,
   FrameHitsFormCardComponent,
 } from './components'
+import { ScoreCalculatorService } from './domain'
+import { FrameService } from './domain/logic/frame.service'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import {
     BrowserModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [ScoreCalculatorService, FrameService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 import { select, Store } from '@ngrx/store'
 import { map, Observable } from 'rxjs'
 
-import { AppState, ScoreCalculatorService } from '../../declarations'
+import { AppState, ScoreCalculatorService } from '../../domain'
 import { framesSelector, removeAllFrames } from '../../state'
 
 @Component({

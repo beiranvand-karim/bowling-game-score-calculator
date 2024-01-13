@@ -7,8 +7,9 @@ import {
 import { Component } from '@angular/core'
 import { select, Store } from '@ngrx/store'
 
-import { AppState, Frame, ScoreCalculatorService } from '../../declarations'
+import { AppState, Frame, ScoreCalculatorService } from '../../domain'
 import { addFrame, framesSelector, removeAllFrames } from '../../state'
+import { FrameService } from '../../domain/logic/frame.service'
 
 @Component({
   selector: 'app-frame-performance-receiving-form',
@@ -28,14 +29,15 @@ export class FramePerformanceReceivingFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<AppState>,
-    private scoreCalculatorService: ScoreCalculatorService
+    private scoreCalculatorService: ScoreCalculatorService,
+    private readonly frameService: FrameService
   ) {
     this.buildForm()
     this.store.pipe(select(framesSelector)).subscribe(frames => {
       const lastFrameInGame =
         frames[this.scoreCalculatorService.GAME_LENGTH - 1]
       this.isGameFrameSpare = lastFrameInGame
-        ? this.scoreCalculatorService.isSpare(lastFrameInGame)
+        ? this.frameService.isSpare(lastFrameInGame)
         : false
     })
   }

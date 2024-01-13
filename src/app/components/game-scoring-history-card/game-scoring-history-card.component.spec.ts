@@ -7,7 +7,7 @@ import { MockComponent } from 'ng-mocks'
 
 import { GameScoringHistoryTableComponent } from '../game-scoring-history-table/game-scoring-history-table.component'
 import { GameScoringHistoryCardComponent } from './game-scoring-history-card.component'
-import { AppState, ScoreCalculatorService } from '../../declarations'
+import { AppState, ScoreCalculatorService } from '../../domain'
 import { framesSelector } from '../../state'
 
 describe('GameScoringHistoryCardComponent', () => {

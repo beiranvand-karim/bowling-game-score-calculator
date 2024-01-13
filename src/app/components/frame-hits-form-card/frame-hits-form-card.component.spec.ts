@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser'
 import { MockComponent } from 'ng-mocks'
 
 import { FrameHitsFormCardComponent } from './frame-hits-form-card.component'
-import { AppState, Frame, ScoreCalculatorService } from '../../declarations'
+import { AppState, Frame, ScoreCalculatorService } from '../../domain'
 import { FramePerformanceReceivingFormComponent } from '..'
 import { framesSelector, initialState } from '../../state'
 
