@@ -7,12 +7,10 @@ import { BrowserModule } from '@angular/platform-browser'
 import { MatInputModule } from '@angular/material/input'
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
-import { StoreModule } from '@ngrx/store'
 
 import { HomePageComponent, NotFoundPageComponent } from './pages'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { framesReducer } from './state'
 import {
   FramePerformanceReceivingFormComponent,
   GameScoringHistoryTableComponent,
@@ -21,6 +19,9 @@ import {
 } from './components'
 import { ScoreCalculatorService } from './domain'
 import { FrameService } from './domain/logic/frame.service'
+import { GameSettingsService } from './network/game-settings.service'
+import { StateModule } from './state/state.module'
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { FrameService } from './domain/logic/frame.service'
     AppComponent,
   ],
   imports: [
-    StoreModule.forRoot({ frames: framesReducer }),
+    StateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -44,8 +45,9 @@ import { FrameService } from './domain/logic/frame.service'
     MatCardModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
   ],
-  providers: [ScoreCalculatorService, FrameService],
+  providers: [ScoreCalculatorService, FrameService, GameSettingsService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

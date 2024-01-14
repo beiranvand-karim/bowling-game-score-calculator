@@ -14,10 +14,10 @@ export class ScoreCalculatorService {
     return this.frameService.isStrike(frame) || this.frameService.isSpare(frame)
   }
 
-  calculateTotalScore(frames: Array<Frame>) {
+  calculateTotalScore(frames: Array<Frame>, gameLength: number) {
     return frames.reduce((accumulator, targetFrame, index) => {
       const nextFrame = frames[index + 1]
-      const isPrizeFrame = index === this.GAME_LENGTH
+      const isPrizeFrame = index === gameLength
 
       if (isPrizeFrame) {
         return accumulator
