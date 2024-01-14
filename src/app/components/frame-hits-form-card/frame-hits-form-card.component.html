@@ -16,7 +16,7 @@
   <ng-template #gameOver>
     <div class="game__score">
       <div>Game Over</div>
-      <div>Total score is {{ allPlayedFramesScore | async }}</div>
+      <div>Total score is {{ allPlayedFramesScore }}</div>
       <button
         (click)="restGame()"
         type="button"

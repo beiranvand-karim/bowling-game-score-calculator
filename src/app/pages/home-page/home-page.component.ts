@@ -17,13 +17,13 @@ import { Observable } from 'rxjs'
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  allPlayedFramesScore: Observable<number>
+  allPlayedFramesScore$: Observable<number>
 
   constructor(
     private readonly store: Store<AppState>,
     private readonly scoreCalculatorService: ScoreCalculatorService
   ) {
-    this.allPlayedFramesScore = this.store.pipe(
+    this.allPlayedFramesScore$ = this.store.pipe(
       select(framesSelector),
       switchMap(frames =>
         this.store

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { select, Store } from '@ngrx/store'
-import { map, Observable } from 'rxjs'
+import { map } from 'rxjs'
 
 import { AppState, ScoreCalculatorService } from '../../domain'
 import { framesSelector, removeAllFrames } from '../../state'
@@ -11,11 +11,11 @@ import { framesSelector, removeAllFrames } from '../../state'
   styleUrls: ['./frame-hits-form-card.component.scss'],
 })
 export class FrameHitsFormCardComponent {
+  @Input()
+  allPlayedFramesScore: number
+
   liveFrameIndicator = 1
   GAME_LENGTH = this.scoreCalculatorService.GAME_LENGTH
-
-  @Input()
-  allPlayedFramesScore: Observable<number>
 
   constructor(
     private store: Store<AppState>,

@@ -8,6 +8,7 @@ import {
   GameHistoryTableIncomingDataFormat,
 } from '../../domain'
 import { framesSelector } from '../../state'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-game-scoring-history-card',
@@ -15,23 +16,27 @@ import { framesSelector } from '../../state'
   styleUrls: ['./game-scoring-history-card.component.scss'],
 })
 export class GameScoringHistoryCardComponent {
-  scoringHistoryData: GameHistoryTableIncomingDataFormat[] = []
-
   @Input()
-  allPlayedFramesScore: Observable<number>
+  allPlayedFramesScore: number
+
+  scoringHistoryData$: Observable<GameHistoryTableIncomingDataFormat[]>
+  gameHasStarted$: Observable<boolean>
 
   constructor(
-    private store: Store<AppState>,
-    private scoreCalculatorService: ScoreCalculatorService
+    private readonly store: Store<AppState>,
+    private readonly scoreCalculatorService: ScoreCalculatorService
   ) {
-    this.store.pipe(select(framesSelector)).subscribe(frames => {
-      this.scoringHistoryData = frames.map((targetFrame, index) => ({
-        frame: targetFrame,
-        score: this.scoreCalculatorService.calculateFrameScore(
-          targetFrame,
-          frames[index + 1]
-        ),
-      }))
-    })
+    this.gameHasStarted$ = this.store.pipe(
+      select(framesSelector),
+      map(this.scoreCalculatorService.gameHasStarted)
+    )
+    this.scoringHistoryData$ = this.store.pipe(
+      select(framesSelector),
+      map(frames =>
+        this.scoreCalculatorService.calculateAllFramesScoreWithNextFrameConsideration(
+          frames
+        )
+      )
+    )
   }
 }
