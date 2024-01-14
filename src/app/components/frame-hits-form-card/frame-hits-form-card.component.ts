@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core'
 import { select, Store } from '@ngrx/store'
-import { map } from 'rxjs'
+import { map, Observable, switchMap } from 'rxjs'
 
 import { AppState, ScoreCalculatorService } from '../../domain'
 import { framesSelector, removeAllFrames } from '../../state'
+import { GameSettingsSelectors } from '../../state/selectors/game-settings.state.selectors'
 
 @Component({
   selector: 'app-frame-hits-form-card',
@@ -14,28 +15,51 @@ export class FrameHitsFormCardComponent {
   @Input()
   allPlayedFramesScore: number
 
-  liveFrameIndicator = 1
-  GAME_LENGTH = this.scoreCalculatorService.GAME_LENGTH
+  liveFrameIndicator$: Observable<number>
+  gameIsOnGoing$: Observable<boolean>
+  gameLength$: Observable<number>
 
   constructor(
-    private store: Store<AppState>,
-    private scoreCalculatorService: ScoreCalculatorService
+    private readonly store: Store<AppState>,
+    private readonly scoreCalculatorService: ScoreCalculatorService
   ) {
     const framesFromStore = this.store.pipe(select(framesSelector))
 
-    framesFromStore
-      .pipe(map(frames => frames.length + 1))
-      .subscribe(framesCount => (this.liveFrameIndicator = framesCount))
+    this.gameLength$ = framesFromStore.pipe(
+      switchMap(frames =>
+        this.store
+          .select(GameSettingsSelectors.gameLength)
+          .pipe(
+            map(gameLength =>
+              this.scoreCalculatorService.calculateGameLength(
+                frames,
+                gameLength
+              )
+            )
+          )
+      )
+    )
 
-    framesFromStore.subscribe(frames => {
-      const lastFrame = frames[frames.length - 1]
+    this.liveFrameIndicator$ = framesFromStore.pipe(
+      map(frames =>
+        this.scoreCalculatorService.identificationForTheFramingBeingPlayed(
+          frames
+        )
+      )
+    )
 
-      this.GAME_LENGTH =
-        frames.length === this.scoreCalculatorService.GAME_LENGTH &&
-        this.scoreCalculatorService.isStrikeOrSpare(lastFrame)
-          ? this.scoreCalculatorService.GAME_LENGTH + 1
-          : this.scoreCalculatorService.GAME_LENGTH
-    })
+    this.gameIsOnGoing$ = this.liveFrameIndicator$.pipe(
+      switchMap(liveFrameIndicator =>
+        this.gameLength$.pipe(
+          map(gameLength =>
+            this.scoreCalculatorService.gameIsOnGoing(
+              liveFrameIndicator,
+              gameLength
+            )
+          )
+        )
+      )
+    )
   }
   public restGame() {
     this.store.dispatch(removeAllFrames())

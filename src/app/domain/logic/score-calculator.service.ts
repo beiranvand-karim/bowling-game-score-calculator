@@ -10,6 +10,21 @@ export class ScoreCalculatorService {
 
   constructor(private readonly frameService: FrameService) {}
 
+  calculateGameLength(frames: Frame[], gameLength: number) {
+    const lastFrame = frames[frames.length - 1]
+    return frames.length === gameLength && this.isStrikeOrSpare(lastFrame)
+      ? gameLength + 1
+      : gameLength
+  }
+
+  gameIsOnGoing(liveFrameIndicator: number, gameLength: number) {
+    return liveFrameIndicator <= gameLength
+  }
+
+  identificationForTheFramingBeingPlayed(frames: Frame[]) {
+    return frames.length === 0 ? 1 : frames.length + 1
+  }
+
   isStrikeOrSpare(frame: Frame) {
     return this.frameService.isStrike(frame) || this.frameService.isSpare(frame)
   }
