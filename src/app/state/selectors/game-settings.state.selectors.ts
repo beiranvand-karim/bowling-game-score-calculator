@@ -11,7 +11,7 @@ export const gameSettings = createSelector(
 
 export const gameLength = createSelector(
   gameSettingsFeature,
-  state => state.gameSettings.GameLength
+  state => state.gameSettings?.GameLength
 )
 
 export const GameSettingsSelectors = {

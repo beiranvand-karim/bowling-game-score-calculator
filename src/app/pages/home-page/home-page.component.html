@@ -1,8 +1,10 @@
 <div class="align-cards-in-a-row">
   <app-frame-hits-form-card
-    [allPlayedFramesScore]="allPlayedFramesScore"></app-frame-hits-form-card>
+    [allPlayedFramesScore]="
+      allPlayedFramesScore$ | async
+    "></app-frame-hits-form-card>
   <app-game-scoring-history-card
     [allPlayedFramesScore]="
-      allPlayedFramesScore
+      allPlayedFramesScore$ | async
     "></app-game-scoring-history-card>
 </div>

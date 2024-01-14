@@ -14,6 +14,17 @@ export class ScoreCalculatorService {
     return this.frameService.isStrike(frame) || this.frameService.isSpare(frame)
   }
 
+  gameHasStarted(frames: Frame[]) {
+    return frames.length > 0
+  }
+
+  calculateAllFramesScoreWithNextFrameConsideration(frames: Frame[]) {
+    return frames.map((targetFrame, index) => ({
+      frame: targetFrame,
+      score: this.calculateFrameScore(targetFrame, frames[index + 1]),
+    }))
+  }
+
   calculateTotalScore(frames: Array<Frame>, gameLength: number) {
     return frames.reduce((accumulator, targetFrame, index) => {
       const nextFrame = frames[index + 1]
